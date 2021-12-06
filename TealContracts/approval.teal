@@ -1,0 +1,596 @@
+#pragma version 3
+	int 0
+	txn ApplicationID
+	==
+	bz label1
+	byte "c"
+	txn Sender
+	app_global_put
+	byte "gt"
+	global LatestTimestamp
+	app_global_put
+	byte "ga"
+	int 0
+	app_global_put
+	byte "gss"
+	int 0
+	app_global_put
+	byte "4"
+	int 0
+	app_global_put
+	byte "5"
+	int 0
+	app_global_put
+	int 1
+	return
+label1:
+	int 5
+	txn OnCompletion
+	==
+	bz label2
+	int 0
+	return
+label2:
+	int 4
+	txn OnCompletion
+	==
+	bz label3
+	byte "c"
+	app_global_get
+	txn Sender
+	==
+	txn NumAppArgs
+	int 4
+	==
+	&&
+	assert
+	byte "E"
+	txna ApplicationArgs 0
+	app_global_put
+	byte "G"
+	txna ApplicationArgs 1
+	btoi
+	app_global_put
+	byte "RID"
+	txna ApplicationArgs 2
+	btoi
+	app_global_put
+	byte "TID"
+	txna ApplicationArgs 3
+	btoi
+	app_global_put
+	int 1
+	return
+label3:
+	int 5
+	txn OnCompletion
+	==
+	bnz label4
+	int 0
+	txn NumAppArgs
+	==
+	bz label5
+	int 1
+	txn OnCompletion
+	==
+	assert
+	int 1
+	return
+label5:
+	txna ApplicationArgs 0
+	byte "10"
+	==
+	bnz label6
+	txna ApplicationArgs 0
+	byte "11"
+	==
+	bnz label7
+	txna ApplicationArgs 0
+	byte "12"
+	==
+	bnz label8
+	txna ApplicationArgs 0
+	byte "13"
+	==
+	bnz label9
+	txna ApplicationArgs 0
+	byte "14"
+	==
+	bnz label10
+	txna ApplicationArgs 0
+	byte "15"
+	==
+	bnz label11
+	txna ApplicationArgs 0
+	byte "16"
+	==
+	bnz label12
+	int 0
+	return
+label10:
+	byte "c"
+	app_global_get
+	txn Sender
+	==
+	assert
+//	int 1
+//	byte "17"
+//	app_global_get_ex
+//	assert
+    //int 1
+   //int 5
+//	byte "18"
+//	app_global_get_ex
+//	assert
+//    int 1
+//	*
+//	int 6
+//	/
+//	store 1
+//	byte "4"
+//	byte "4"
+//	app_global_get
+//	load 1
+//	int 7
+//	int 5
+//	byte "19"
+//	app_global_get_ex
+//	assert
+//	-
+//	*
+//	int 7
+//	/
+//	+
+//	app_global_put
+	int 1
+	return
+
+label11:
+	gtxn 0 ApplicationID
+	byte "G"
+	app_global_get
+	==
+	assert
+	byte "ga"
+	app_global_get
+	store 1
+	global LatestTimestamp
+	byte "gt"
+	app_global_get
+	-
+	int 8
+	/
+	store 8
+	load 8
+	load 1
+	*
+	byte "gss"
+	app_global_get
+	+
+	store 2
+	int 0
+	byte "20"
+	app_local_get
+	store 1
+	global LatestTimestamp
+	int 0
+	byte "21"
+	app_local_get
+	-
+	int 8
+	/
+	store 8
+	load 8
+	load 1
+	*
+	int 0
+	byte "22"
+	app_local_get
+	+
+	store 3
+	byte "4"
+	app_global_get
+	load 2
+	load 3
+	/
+	/
+	store 6
+	load 6
+	gtxn 3 AssetAmount
+	>=
+	assert
+	byte "4"
+	byte "4"
+	app_global_get
+	gtxn 3 AssetAmount
+	-
+	app_global_put
+	int 1
+	return
+label6:
+	gtxn 0 ApplicationID
+	byte "G"
+	app_global_get
+	==
+	assert
+	byte "ga"
+	app_global_get
+	store 1
+	global LatestTimestamp
+	byte "gt"
+	app_global_get
+	-
+	int 8
+	/
+	store 8
+	load 8
+	load 1
+	*
+	byte "gss"
+	app_global_get
+	+
+	store 2
+	byte "gss"
+	load 2
+	app_global_put
+	byte "ga"
+	app_global_get
+	gtxn 2 AssetAmount
+	+
+	store 3
+	byte "ga"
+	load 3
+	app_global_put
+	load 8
+	int 1
+	>=
+	bz label13
+	byte "gt"
+	byte "gt"
+	app_global_get
+	load 8
+	int 8
+	*
+	+
+	app_global_put
+label13:
+	int 0
+	txn ApplicationID
+	byte "20"
+	app_local_get_ex
+	bz label14
+	int 0
+	byte "20"
+	app_local_get
+	store 1
+	global LatestTimestamp
+	int 0
+	byte "21"
+	app_local_get
+	-
+	int 8
+	/
+	store 8
+	load 8
+	load 1
+	*
+	int 0
+	byte "22"
+	app_local_get
+	+
+	store 2
+	int 0
+	byte "22"
+	load 2
+	app_local_put
+	int 0
+	byte "20"
+	app_local_get
+	gtxn 2 AssetAmount
+	+
+	store 3
+	int 0
+	byte "20"
+	load 3
+	app_local_put
+	load 8
+	int 1
+	>=
+	bz label15
+	int 0
+	byte "21"
+	int 0
+	byte "21"
+	app_local_get
+	load 8
+	int 8
+	*
+	+
+	app_local_put
+label15:
+	int 1
+	return
+label7:
+	gtxn 0 ApplicationID
+	byte "G"
+	app_global_get
+	==
+	assert
+	byte "ga"
+	app_global_get
+	store 1
+	global LatestTimestamp
+	byte "gt"
+	app_global_get
+	-
+	int 8
+	/
+	store 8
+	load 8
+	load 1
+	*
+	byte "gss"
+	app_global_get
+	+
+	store 2
+	byte "gss"
+	load 2
+	app_global_put
+	byte "ga"
+	app_global_get
+	gtxn 2 AssetAmount
+	-
+	store 3
+	byte "ga"
+	load 3
+	app_global_put
+	load 8
+	int 1
+	>=
+	bz label16
+	byte "gt"
+	byte "gt"
+	app_global_get
+	load 8
+	int 8
+	*
+	+
+	app_global_put
+label16:
+	int 0
+	byte "20"
+	app_local_get
+	store 1
+	global LatestTimestamp
+	int 0
+	byte "21"
+	app_local_get
+	-
+	int 8
+	/
+	store 8
+	load 8
+	load 1
+	*
+	int 0
+	byte "22"
+	app_local_get
+	+
+	store 2
+	int 0
+	byte "22"
+	load 2
+	app_local_put
+	int 0
+	byte "20"
+	app_local_get
+	gtxn 2 AssetAmount
+	-
+	store 3
+	int 0
+	byte "20"
+	load 3
+	app_local_put
+	load 8
+	int 1
+	>=
+	bz label17
+	int 0
+	byte "21"
+	int 0
+	byte "21"
+	app_local_get
+	load 8
+	int 8
+	*
+	+
+	app_local_put
+label17:
+	int 1
+	return
+label9:
+	global GroupSize
+	int 5
+	==
+	byte "23"
+	byte "5"
+	app_global_get
+	app_global_put
+	byte "c"
+	app_global_get
+	txn Sender
+	==
+	&&
+	assert
+	int 1
+	balance
+	int 1
+	min_balance
+	-
+	int 1
+	byte "ga"
+	app_global_get_ex
+	assert
+	byte "5"
+	app_global_get
+	+
+	-
+	int 9
+	*
+	int 7
+	/
+	store 1
+	byte "5"
+	byte "5"
+	app_global_get
+	load 1
+	+
+	app_global_put
+	int 1
+	return
+label8:
+	gtxn 0 ApplicationID
+	byte "G"
+	app_global_get
+	==
+	assert
+	int 1
+    return
+//	byte "ga"
+//	app_global_get
+//	store 1
+//	global LatestTimestamp
+//	byte "gt"
+//	app_global_get
+//	-
+//	int 8
+//	/
+//	store 8
+//	load 8
+//	load 1
+//	*
+//	byte "gss"
+//	app_global_get
+//	+
+//	store 2
+//	byte "gss"
+//	load 2
+//	app_global_put
+//	load 8
+//	int 1
+//	>=
+//	bz label18
+//	byte "gt"
+//	byte "gt"
+//	app_global_get
+//	load 8
+//	int 8
+//	*
+//	+
+//	app_global_put
+label18:
+	int 0
+	byte "20"
+	app_local_get
+	store 1
+	global LatestTimestamp
+	int 0
+	byte "21"
+	app_local_get
+	-
+	int 8
+	/
+	store 8
+	load 8
+	load 1
+	*
+	int 0
+	byte "22"
+	app_local_get
+	+
+	store 2
+	int 0
+	byte "22"
+	load 2
+	app_local_put
+	int 10
+	//byte "5"
+	//app_global_get
+	byte "gss"
+	app_global_get
+	int 0
+	byte "22"
+	app_local_get
+	/
+	/
+	store 4
+	load 4
+	gtxn 4 Amount
+	>=
+	assert
+	//byte "5"
+	//byte "5"
+	//app_global_get
+	int 10
+	gtxn 4 Amount
+	-
+	//app_global_put
+	byte "gss"
+	byte "gss"
+	app_global_get
+	int 0
+	byte "22"
+	app_local_get
+	-
+	app_global_put
+	int 0
+	byte "22"
+	int 0
+	app_local_put
+	load 8
+	int 1
+	>=
+	bz label19
+	int 0
+	byte "21"
+	int 0
+	byte "21"
+	app_local_get
+	load 8
+	int 8
+	*
+	+
+	app_local_put
+label19:
+	int 1
+	return
+label14:
+	int 0
+	byte "20"
+	gtxn 2 AssetAmount
+	app_local_put
+	int 0
+	byte "21"
+	byte "gt"
+	app_global_get
+	app_local_put
+	int 0
+	byte "22"
+	int 0
+	app_local_put
+	int 1
+	return
+label12:
+	byte "c"
+	app_global_get
+	txn Sender
+	==
+	assert
+	byte "c"
+	txna ApplicationArgs 1
+	app_global_put
+	int 1
+	return
+label4:
+	int 1
+	return

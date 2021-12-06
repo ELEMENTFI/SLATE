@@ -1,0 +1,140 @@
+#pragma version 3
+	int 0
+	txn ApplicationID
+	==
+	bz label1
+	byte "C"
+	txn Sender
+	app_global_put
+	txn NumAppArgs
+	int 1
+	==
+	bz label2
+	byte "OptedIn"
+	int 0
+	app_global_put
+	b label3
+label1:
+	int 5
+	txn OnCompletion
+	==
+	bz label4
+	b label2
+label4:
+	int 4
+	txn OnCompletion
+	==
+	bz label5
+	byte "C"
+	app_global_get
+	txn Sender
+	==
+	txn NumAppArgs
+	int 2
+	==
+	&&
+	bz label2
+	byte "E"
+	txna ApplicationArgs 0
+	app_global_put
+	byte "G"
+	txna ApplicationArgs 1
+	btoi
+	app_global_put
+	int 1
+	return
+label5:
+	int 4
+	txn OnCompletion
+	==
+	bnz label3
+	int 0
+	txn NumAppArgs
+	==
+	bz label6
+	int 1
+	txn OnCompletion
+	==
+	bz label2
+	int 1
+	return
+label6:
+	txna ApplicationArgs 0
+	byte "opt_in"
+	==
+	bnz label7
+	txna ApplicationArgs 0
+	byte "5"
+	==
+	bnz label8
+	txna ApplicationArgs 0
+    byte "always"
+    ==
+    bnz label3
+	txna ApplicationArgs 0
+	byte "CO"
+	==
+	bnz label9
+	int 0
+	return
+label7:
+	gtxn 0 ApplicationID
+	byte "G"
+	app_global_get
+	==
+	assert
+	gtxn 1 Sender
+	byte "C"
+	app_global_get
+	==
+	gtxn 2 AssetAmount
+	int 0
+	==
+	&&
+	gtxn 2 AssetCloseTo
+	global ZeroAddress
+	==
+	&&
+	gtxn 2 RekeyTo
+	global ZeroAddress
+	==
+	&&
+	bz label2
+	b label3
+label8:
+	gtxn 0 ApplicationID
+	byte "G"
+	app_global_get
+	==
+	assert
+	gtxn 2 Sender
+	byte "C"
+	app_global_get
+	==
+	gtxn 2 AssetAmount
+	int 0
+	==
+	&&
+	gtxn 2 AssetCloseTo
+	global ZeroAddress
+	==
+	&&
+	bz label2
+	b label3
+label9:
+	byte "C"
+	app_global_get
+	txn Sender
+	==
+	assert
+	byte "C"
+	txna ApplicationArgs 1
+	app_global_put
+	int 1
+	return
+label2:
+	int 0
+	return
+label3:
+	int 1
+	return

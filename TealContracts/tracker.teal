@@ -1,0 +1,134 @@
+#pragma version 3
+	int 0
+	txn ApplicationID
+	==
+	bz label1
+	byte "C"
+	txn Sender
+	app_global_put
+	txn NumAppArgs
+	int 2
+	==
+	bz label2
+	byte "Receiver"
+	txna ApplicationArgs 0
+	app_global_put
+	byte "RT"
+	txna ApplicationArgs 1
+	btoi
+	app_global_put
+	byte "RC"
+	int 0
+	app_global_put
+	byte "TI"
+	int 60
+	app_global_put
+	int 1
+	return
+label1:
+	int 5
+	txn OnCompletion
+	==
+	bz label3
+	b label2
+label3:
+	int 4
+	txn OnCompletion
+	==
+	bz label4
+	byte "C"
+	app_global_get
+	txn Sender
+	==
+	txn NumAppArgs
+	int 1
+	==
+	&&
+	bz label2
+	byte "5"
+	txna ApplicationArgs 0
+	app_global_put
+	int 1
+	return
+label4:
+	int 2
+	txn OnCompletion
+	==
+	bnz label5
+	int 0
+	txn NumAppArgs
+	==
+	bz label6
+	int 1
+	txn OnCompletion
+	==
+	bz label2
+	int 1
+	return
+label6:
+	txna ApplicationArgs 0
+	byte "6"
+	==
+	bnz label7
+	txna ApplicationArgs 0
+	byte "7"
+	==
+	bnz label8
+	txna ApplicationArgs 0
+	byte "8"
+	==
+	bnz label9
+	int 0
+	return
+label7:
+	global GroupSize
+	int 3
+	==
+	byte "C"
+	app_global_get
+	txn Sender
+	==
+	&&
+	bz label2
+	byte "RC"
+	byte "RC"
+	app_global_get
+	int 1
+	+
+	app_global_put
+	byte "RT"
+	byte "RT"
+	app_global_get
+	byte "4"
+	app_global_get
+	+
+	app_global_put
+	b label5
+label8:
+	gtxn 0 Sender
+	byte "C"
+	app_global_get
+	==
+	bz label2
+	byte "4"
+	txna ApplicationArgs 1
+	btoi
+	app_global_put
+	b label5
+label9:
+	byte "C"
+	app_global_get
+	txn Sender
+	==
+	assert
+	byte "C"
+	txna ApplicationArgs 1
+	app_global_put
+	int 1
+	return
+label2:
+	int 0
+	return
+label5:
+	int 1
+	return
