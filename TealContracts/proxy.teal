@@ -30,7 +30,7 @@ label4:
 	txn Sender
 	==
 	txn NumAppArgs
-	int 4
+	int 3
 	==
 	&&
 	bz label2
@@ -41,12 +41,12 @@ label4:
 	txna ApplicationArgs 1
 	btoi
 	app_global_put
-	byte "Nolossid"
-	txna ApplicationArgs 2
-	btoi
-	app_global_put
+//	byte "Nolossid"
+//	txna ApplicationArgs 2
+//	btoi
+//	app_global_put
 	byte "Optid"
-	txna ApplicationArgs 3
+	txna ApplicationArgs 2
 	btoi
 	app_global_put
 	b label3

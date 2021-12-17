@@ -8,8 +8,8 @@ int 6
 <=
 &&
 bz label1
-gtxn 0 ApplicationID // id=233725848
-int 49099237
+gtxn 0 ApplicationID
+int 51616360
 ==
 bnz label2
 b label1

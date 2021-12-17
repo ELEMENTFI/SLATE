@@ -21,7 +21,7 @@
 	int 0
 	app_global_put
 	byte "TI"
-	int 60
+	int 86400
 	app_global_put
 	int 1
 	return
