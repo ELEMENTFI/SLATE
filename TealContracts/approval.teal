@@ -196,7 +196,7 @@ label11:
 	/
 	store 6
 	load 6
-	gtxn 3 AssetAmount
+    gtxn 3 AssetAmount
 	>=
 	assert
 	byte "4"
@@ -205,8 +205,31 @@ label11:
 	gtxn 3 AssetAmount
 	-
 	app_global_put
+	//localchange
+	int 0
+	byte "20"
+	app_local_get
+	gtxn 2 AssetAmount
+	-
+	store 10
+	int 0
+	byte "20"
+	load 10
+    app_local_put
+   //globalchange
+    int 0
+    byte "ga"
+    app_global_get
+    gtxn 2 AssetAmount
+    -
+    store 11
+    int 0
+    byte "ga"
+    load 11
+    app_global_put
 	int 1
 	return
+
 label6:
 	gtxn 0 ApplicationID
 	byte "G"
@@ -308,8 +331,8 @@ label13:
 	+
 	app_local_put
 label15:
-	int 1
-	return
+    int 1
+    return
 label7:
 	gtxn 0 ApplicationID
 	byte "G"
@@ -594,3 +617,4 @@ label12:
 label4:
 	int 1
 	return
+
