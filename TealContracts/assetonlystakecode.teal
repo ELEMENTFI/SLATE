@@ -15,10 +15,10 @@
 	byte "GSS"
 	int 0
 	app_global_put
-	byte "TYL"
+	byte "TSUL"
 	int 0
 	app_global_put
-	byte "TYUL"
+	byte "TSL"
 	int 0
 	app_global_put
 	int 1
@@ -78,11 +78,11 @@ label3:
 	return
 label4:
 	txna ApplicationArgs 0
-	byte "14"
+	byte "S"
 	==
 	bnz label5
 	txna ApplicationArgs 0
-	byte "15"
+	byte "W"
 	==
 	bnz label6
 	txna ApplicationArgs 0
@@ -98,11 +98,11 @@ label4:
 	==
 	bnz label9
 	txna ApplicationArgs 0
-	byte "16"
+	byte "CA"
 	==
 	bnz label10
 	txna ApplicationArgs 0
-	byte "12"
+	byte "CHECK"
 	==
 	bnz label11
 	txna ApplicationArgs 0
@@ -118,7 +118,7 @@ label4:
 	==
 	bnz label14
 	txna ApplicationArgs 0
-	byte "17"
+	byte "OPTIN"
 	==
 	bnz label15
 	txna ApplicationArgs 0
@@ -145,8 +145,8 @@ label8:
 	int 2
 	==
 	assert
-	byte "TYUL"
-	byte "TYUL"
+	byte "TSL"
+	byte "TSL"
 	app_global_get
 	gtxn 1 AssetAmount
 	+
@@ -159,38 +159,38 @@ label9:
 	txn Sender
 	==
 	assert
-	byte "TYUL"
+	byte "TSL"
 	app_global_get
 	int 4320
 	/
 	store 1
-	byte "9"
-	byte "9"
+	byte "TSULC"
+	byte "TSULC"
 	app_global_get
 	load 1
 	+
-	byte "TYUL"
+	byte "TSL"
 	app_global_get
 	>
 	bz label18
-	byte "9"
+	byte "TSULC"
 	app_global_get
 	load 1
 	+
-	byte "TYUL"
+	byte "TSL"
 	app_global_get
 	-
 	store 11
-	byte "9"
-	byte "9"
+	byte "TSULC"
+	byte "TSULC"
 	app_global_get
 	load 1
 	+
 	load 11
 	-
 	app_global_put
-	byte "TYL"
-	byte "TYL"
+	byte "TSUL"
+	byte "TSUL"
 	app_global_get
 	load 1
 	load 11
@@ -199,14 +199,14 @@ label9:
 	app_global_put
 	b label19
 label18:
-	byte "TYL"
-	byte "TYL"
+	byte "TSUL"
+	byte "TSUL"
 	app_global_get
 	load 1
 	+
 	app_global_put
-	byte "9"
-	byte "9"
+	byte "TSULC"
+	byte "TSULC"
 	app_global_get
 	load 1
 	+
@@ -216,7 +216,7 @@ label19:
 	return
 label5:
 	gtxna 0 ApplicationArgs 0
-	byte "12"
+	byte "CHECK"
 	==
 	assert
 	gtxn 0 ApplicationID
@@ -239,7 +239,7 @@ label5:
 	byte "GT"
 	app_global_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -268,18 +268,18 @@ label5:
 	byte "GT"
 	app_global_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_global_put
 label20:
 	int 0
 	txn ApplicationID
-	byte "4"
+	byte "UA"
 	app_local_get_ex
 	bz label21
 	int 0
-	byte "4"
+	byte "UA"
 	app_local_get
 	store 1
 	global LatestTimestamp
@@ -287,7 +287,7 @@ label20:
 	byte "UT"
 	app_local_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -303,13 +303,13 @@ label20:
 	load 2
 	app_local_put
 	int 0
-	byte "4"
+	byte "UA"
 	app_local_get
 	gtxn 2 AssetAmount
 	+
 	store 3
 	int 0
-	byte "4"
+	byte "UA"
 	load 3
 	app_local_put
 	load 8
@@ -322,7 +322,7 @@ label20:
 	byte "UT"
 	app_local_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_local_put
@@ -331,7 +331,7 @@ label22:
 	return
 label6:
 	gtxna 0 ApplicationArgs 0
-	byte "12"
+	byte "CHECK"
 	==
 	assert
 	txn GroupIndex
@@ -354,7 +354,7 @@ label6:
 	byte "GT"
 	app_global_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -383,13 +383,13 @@ label6:
 	byte "GT"
 	app_global_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_global_put
 label23:
 	int 0
-	byte "4"
+	byte "UA"
 	app_local_get
 	store 1
 	global LatestTimestamp
@@ -397,7 +397,7 @@ label23:
 	byte "UT"
 	app_local_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -413,13 +413,13 @@ label23:
 	load 2
 	app_local_put
 	int 0
-	byte "4"
+	byte "UA"
 	app_local_get
 	gtxn 2 AssetAmount
 	-
 	store 3
 	int 0
-	byte "4"
+	byte "UA"
 	load 3
 	app_local_put
 	load 8
@@ -432,7 +432,7 @@ label23:
 	byte "UT"
 	app_local_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_local_put
@@ -441,7 +441,7 @@ label24:
 	return
 label10:
 	gtxna 0 ApplicationArgs 0
-	byte "12"
+	byte "CHECK"
 	==
 	assert
 	txn GroupIndex
@@ -464,7 +464,7 @@ label10:
 	byte "GT"
 	app_global_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -485,13 +485,13 @@ label10:
 	byte "GT"
 	app_global_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_global_put
 label25:
 	int 0
-	byte "4"
+	byte "UA"
 	app_local_get
 	store 1
 	global LatestTimestamp
@@ -499,7 +499,7 @@ label25:
 	byte "UT"
 	app_local_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -514,7 +514,7 @@ label25:
 	byte "USS"
 	load 2
 	app_local_put
-	byte "TYL"
+	byte "TSUL"
 	app_global_get
 	byte "GSS"
 	app_global_get
@@ -528,8 +528,8 @@ label25:
 	gtxn 2 AssetAmount
 	>=
 	assert
-	byte "TYL"
-	byte "TYL"
+	byte "TSUL"
+	byte "TSUL"
 	app_global_get
 	gtxn 2 AssetAmount
 	-
@@ -556,7 +556,7 @@ label25:
 	byte  "UT"
 	app_local_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_local_put
@@ -597,7 +597,7 @@ label7:
 	byte "GT"
 	app_global_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -618,13 +618,13 @@ label7:
 	byte "GT"
 	app_global_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_global_put
 label27:
 	int 0
-	byte "4"
+	byte "UA"
 	app_local_get
 	store 1
 	global LatestTimestamp
@@ -632,7 +632,7 @@ label27:
 	byte "UT"
 	app_local_get
 	-
-	int 86400
+	int 60
 	/
 	store 8
 	load 8
@@ -647,7 +647,7 @@ label27:
 	byte "USS"
 	load 2
 	app_local_put
-	byte "TYL"
+	byte "TSUL"
 	app_global_get
 	byte "GSS"
 	app_global_get
@@ -663,7 +663,7 @@ label27:
 	assert
 	gtxn 3 AssetAmount
 	int 0
-	byte "4"
+	byte "UA"
 	app_local_get
 	==
 	assert
@@ -674,11 +674,11 @@ label27:
 	-
 	app_global_put
 	int 0
-	byte "4"
+	byte "UA"
 	int 0
 	app_local_put
-	byte "TYL"
-	byte "TYL"
+	byte "TSUL"
+	byte "TSUL"
 	app_global_get
 	gtxn 2 AssetAmount
 	-
@@ -705,7 +705,7 @@ label27:
 	byte "UT"
 	app_local_get
 	load 8
-	int 86400
+	int 60
 	*
 	+
 	app_local_put
@@ -726,14 +726,14 @@ label11:
 	==
 	assert
 	gtxna 1 ApplicationArgs 0
-	byte "16"
+	byte "CA"
 	==
 	gtxna 1 ApplicationArgs 0
-	byte "14"
+	byte "S"
 	==
 	||
 	gtxna 1 ApplicationArgs 0
-	byte "15"
+	byte "W"
 	==
 	||
 	bz label29
@@ -741,7 +741,7 @@ label11:
 	int 3
 	==
 	gtxna 1 ApplicationArgs 0
-	byte "16"
+	byte "CA"
 	==
 	&&
 	bz label30
@@ -776,7 +776,7 @@ label30:
 	int 3
 	==
 	gtxna 1 ApplicationArgs 0
-	byte "15"
+	byte "W"
 	==
 	&&
 	bz label32
@@ -821,7 +821,7 @@ label32:
 	==
 	assert
 	gtxna 1 ApplicationArgs 0
-	byte "14"
+	byte "S"
 	==
 	assert
 	gtxn 2 TypeEnum
@@ -846,7 +846,7 @@ label29:
 	byte "18"
 	==
 	gtxna 1 ApplicationArgs 0
-	byte "17"
+	byte "OPTIN"
 	==
 	||
 	bz label35
@@ -863,7 +863,7 @@ label29:
 	==
 	assert
 	gtxna 1 ApplicationArgs 0
-	byte "17"
+	byte "OPTIN"
 	==
 	assert
 	gtxn 2 AssetReceiver
@@ -1018,7 +1018,7 @@ label14:
 	b label31
 label21:
 	int 0
-	byte "4"
+	byte "UA"
 	gtxn 2 AssetAmount
 	app_local_put
 	int 0
@@ -1099,3 +1099,4 @@ label31:
 label34:
 	int 0
 	return
+
